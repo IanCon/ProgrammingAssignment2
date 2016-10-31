@@ -1,9 +1,9 @@
 ## Function wrapper to handling caching and reading of matrices
 
-## Write a short comment describing this function
+## Creates the functions for creating and accessing cache objects
 
 makeCacheMatrix <- function(x = matrix()) {
-	m <- NULL
+	m <- NULL	# m for matrix
   	
 	set <- function(y) {
     		x <<- y
@@ -12,9 +12,9 @@ makeCacheMatrix <- function(x = matrix()) {
 
   	get <- function() x
   
-	setcache <- function(cache) m <<- cache
+	setcache <- function(cache) m <<- cache		# load matrix into cache
   	
-	getcache <- function() m
+	getcache <- function() m			# read matrix in cache
   	
 	list(set = set, get = get, setcache = setcache, getcache = getcache)
 
@@ -26,19 +26,19 @@ makeCacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
 
-	m <- x$getcache()
-  
+	m <- x$getcache()	# see if matrix required (passed as parameter x)
+  				# … is in cache
 	if(!is.null(m)) {
 #    		message(“Cached matrix”)
-    		return(m)
+    		return(m)	# found matrix in cache and return
   	}
 
-	data <- x$get()
+	data <- x$get()		# get the data from the new matrix
   
-	m <- solve(data, ...)
+	m <- solve(data, ...)	# create the inverse with ‘solve’ command
 
-	x$setcache(m)
+	x$setcache(m)		# and save the computed inverse matrix
   	
-	m
+	m			# return the memory location
 
 }
